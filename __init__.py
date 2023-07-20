@@ -1,1 +1,1 @@
-from .src import scanning
+from .src.scanning import Scanner
