@@ -1,18 +1,18 @@
 from pathlib import Path
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 @dataclass
 class ScanResults:
-    files: list[Path]
-    dirs: list[Path]
-    manifests: dict[Path, list[Path]]
+    files: list[Path] = field(default_factory=list)
+    dirs: list[Path] = field(default_factory=list)
+    manifests: dict[Path, list[Path]] = field(default_factory=dict)
 
 class Scanner:
     @staticmethod
     def recursive_scan(dir: Path, previousresults: ScanResults=...,
                         excludedirs: list[str]=..., dironly:bool=False, printdir: bool=False) -> ScanResults:
         
-        scanresults = ScanResults([], [], {}) if previousresults is ... else previousresults
+        scanresults = ScanResults() if previousresults is ... else previousresults
 
         if excludedirs is not ... and dir.name in excludedirs:
             return scanresults
@@ -43,7 +43,7 @@ class Scanner:
         self._reset()
 
     def _reset(self) -> None:
-        self.results: ScanResults | None = None
+        self.results: ScanResults = ScanResults()
 
     def setroot(self, rootdir: str|Path) -> None:
         self._reset()
