@@ -1,1 +1,1 @@
-from .src.scanning import Scanner
+from .src.filescanner.scanning import Scanner, ScanResults

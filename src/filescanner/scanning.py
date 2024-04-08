@@ -9,12 +9,12 @@ class ScanResults:
 
 class Scanner:
     @staticmethod
-    def recursive_scan(dir: Path, previousresults: ScanResults=...,
-                        excludedirs: list[str]=..., dironly:bool=False, printdir: bool=False) -> ScanResults:
+    def recursive_scan(dir: Path, previousresults: ScanResults | None = None,
+                        excludedirs: list[str] | None = None, dironly:bool=False, printdir: bool=False) -> ScanResults:
         
-        scanresults = ScanResults() if previousresults is ... else previousresults
+        scanresults = ScanResults() if previousresults is None else previousresults
 
-        if excludedirs is not ... and dir.name in excludedirs:
+        if excludedirs is not None and dir.name in excludedirs:
             return scanresults
         else:
             scanresults.dirs.append(dir)
@@ -49,7 +49,7 @@ class Scanner:
         self._reset()
         self.rootdir = Path(rootdir)
 
-    def scan(self, excludedirs: list[str]=..., dironly: bool=False) -> None:
+    def scan(self, excludedirs: list[str] | None = None, dironly: bool=False) -> None:
         self._reset()
         if self.rootdir is None:
             raise AttributeError("No rootdir set in Scanner")
